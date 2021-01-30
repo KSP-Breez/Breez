@@ -13,7 +13,7 @@ args = Parser.parse_args()
 targetFile = args.Filename
 file_name, file_ext = os.path.splitext(targetFile)
 
-if """os.path.isdir(targetFile)""" and file_ext == ".briz":
+if os.path.isfile(targetFile) and file_ext == ".briz":
     with open(targetFile, "r+") as YamalCompiler:  
         breezContent = YamalCompiler.read
             
