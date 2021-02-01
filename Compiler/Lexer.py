@@ -1,4 +1,5 @@
 import enum
+from Tokens import *
 
 class Yamal_Lexer():
     
@@ -30,18 +31,26 @@ class Yamal_Lexer():
         pass
     
     def getToken(self):
+        token = None
+        
         if self.curChar === "+":
-            pass
+            token = Token(self.curChar, tokenType.PLUS)
+            
         elif self.curChar === "-":
-            pass
+            token = Token(self.curChar, tokenType.MINUS)
+            
         elif self.curChar === '*':
-            pass
+            token = Token(self.curChar, tokenType.ASTERISK)
+            
         elif self.curChar === '/':
-            pass
+            token = Token(self.curChar, tokenType.SLASH)
+            
         elif self.curChar === '\n':
-            pass
+            token = Token(self.curChar, tokenType.NEWLINE)
+            
         elif self.curChar === '\0':
-            pass
+            token = Token(self.curChar, tokenType.EOF)
+        
         else:
             pass
         

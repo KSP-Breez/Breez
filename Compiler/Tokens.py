@@ -9,6 +9,7 @@ class tokenType(enum.Enum):
     NUMBER = 1
     IDENT = 2
     STRING = 3
+    TEMPLATE_LITERAL = 4 # #<Variable> (Enclosed in double backticks rather than in single backticks)
     
     #-KEYWORDS-#
     
@@ -34,19 +35,21 @@ class tokenType(enum.Enum):
     
     #-MATHEMATICAL OPERATORS-#
     
-    PLUS = 201 
-    MINUS = 202
-    ASTERISK = 203
-    SLASH = 204
-    EQUALS_EQUALS =  205
-    NOT_EQUALS = 206
-    GREATER_THAN = 207
-    LESSER_THAN = 208
-    GREAT_OR_EQUALS = 211
-    LESSER_OR_EQUALS = 210
+    PLUS = 201 # +
+    MINUS = 202 # -
+    ASTERISK = 203 # *
+    SLASH = 204 # /
+    EQUALS_EQUALS =  205 # ==
+    NOT_EQUALS = 206 # !=
+    GREATER_THAN = 207 # >
+    LESSER_THAN = 208 # <
+    GREAT_OR_EQUALS = 211 # >=
+    LESSER_OR_EQUALS = 210 # <=
     
     #-DECLARE OPERATORS-#
     
     DECLARE_EQUALS = 301
+    FUNCTION_EQUALS = 302
+    # Actually, DECLARE_EQUALS (301) is gonna be one of the two, or both of these symbols: =>, =
     
     
