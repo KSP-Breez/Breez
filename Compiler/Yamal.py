@@ -27,13 +27,14 @@ else:
     raise InvalidFile_ERR()
     sys.exit()
 """
-def read_dumbe():
-    input = "My ass is big"
+def read():
+    input = "+- */"
     lexer = Yamal_Lexer(input)
-    while lexer.peek() != '\0':
-        print(lexer.curChar)
-        lexer.nextCharacter()
+    
+    token = lexer.getToken()
+    
+    while token.kind != tokenType.EOF:
+        print(token.kind)
+        token = lexer.getToken()
 
-read_dumbe()
-
-def 
+read()

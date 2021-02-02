@@ -29,7 +29,7 @@ class tokenType(enum.Enum):
     TRUE = 112
     SHIP = 113
     MASS = 114
-    STEERING 115
+    STEERING = 115
     UP = 116
     LANDED = 117
     
@@ -48,8 +48,6 @@ class tokenType(enum.Enum):
     
     #-DECLARE OPERATORS-#
     
-    DECLARE_EQUALS = 301
-    FUNCTION_EQUALS = 302
-    # Actually, DECLARE_EQUALS (301) is gonna be one of the two, or both of these symbols: =>, =
-    
+    DECLARE_EQUALS = 301 =>
+    # FUNCTION_EQUALS = 302
     
