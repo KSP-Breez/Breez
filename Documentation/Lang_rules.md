@@ -1,3 +1,0 @@
-# MATHEMATICAL OPERATORS
-
-Elements like >, <, *, -, +, 

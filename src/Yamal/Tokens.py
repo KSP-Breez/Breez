@@ -11,43 +11,59 @@ class tokenType(enum.Enum):
     STRING = 3
     TEMPLATE_LITERAL = 4 # #<Variable> (Enclosed in double backticks rather than in single backticks)
     
+    #-DIRECTIVES-#
+    
+    #-COMPILER DIRECTIVES-#
+    
+    STRICT = 51
+    
+    #-BREEZ DIRECTIVES-#
+    
+    IMPORT = 53
+    LAZYGLOBAL = 54
+    
     #-KEYWORDS-#
     
     IF = 101
     WHILE = 102
-    WAIT = 103
-    #VAR_L = 104 - Useless for now
-    #VAR_G = 105 - Useless for now
+    HOLD = 103
     VAR = 104
     PRINT = 105
     CLEAR = 106
     STAGE = 107
-    ELSEIF = 108
-    WAIT_UNTIL = 109
+    ELSE = 108
+    UP = 109
     THROTTLE = 110
     FALSE = 111
     TRUE = 112
     SHIP = 113
     MASS = 114
     STEERING = 115
-    UP = 116
-    LANDED = 117
+    G = 116
+    L = 117
+    FOR = 118
+    AND = 119 # &&
+    OR = 120 # ||
+    
     
     #-MATHEMATICAL OPERATORS-#
     
     PLUS = 201 # +
     MINUS = 202 # -
-    ASTERISK = 203 # *
-    SLASH = 204 # /
-    EQUALS_EQUALS =  205 # ==
-    NOT_EQUALS = 206 # !=
-    GREATER_THAN = 207 # >
-    LESSER_THAN = 208 # <
-    GREAT_OR_EQUALS = 211 # >=
-    LESSER_OR_EQUALS = 210 # <=
+    MULTIPLY = 203 # *
+    DIVIDE = 204 # /
+    MODULUS = 205 # %
+    EQUALS =  206 # =
+    NOT_EQUALS = 207 # !=
+    GREATER_THAN = 208 # >
+    LESSER_THAN = 209 # <
+    GREAT_OR_EQUALS = 210 # >=
+    LESSER_OR_EQUALS = 211 # <=
+    SQUARE_ROOT = 212 # sqrt()
+    POWER = 213 # ^
     
     #-DECLARE OPERATORS-#
     
-    DECLARE_EQUALS = 301 =>
+    DECLARE_EQUALS = 301 # =>
     # FUNCTION_EQUALS = 302
     
