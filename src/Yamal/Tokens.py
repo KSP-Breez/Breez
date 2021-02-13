@@ -10,6 +10,7 @@ class tokenType(enum.Enum):
     IDENT = 2
     STRING = 3
     TEMPLATE_LITERAL = 4 # #<Variable> (Enclosed in double backticks rather than in single backticks)
+    DECLARE_EQUALS = 5
     
     #-DIRECTIVES-#
     
@@ -48,22 +49,22 @@ class tokenType(enum.Enum):
     
     #-MATHEMATICAL OPERATORS-#
     
-    PLUS = 201 # +
-    MINUS = 202 # -
-    MULTIPLY = 203 # *
-    DIVIDE = 204 # /
-    MODULUS = 205 # %
-    EQUALS =  206 # =
-    NOT_EQUALS = 207 # !=
-    GREATER_THAN = 208 # >
-    LESSER_THAN = 209 # <
-    GREAT_OR_EQUALS = 210 # >=
-    LESSER_OR_EQUALS = 211 # <=
-    SQUARE_ROOT = 212 # sqrt()
-    POWER = 213 # ^
+    PLUS = 401 # +
+    MINUS = 402 # -
+    MULTIPLY = 403 # *
+    DIVIDE = 404 # /
+    MODULUS = 405 # %
+    EQUALS =  406 # =
+    NOT_EQUALS = 407 # !=
+    GREATER_THAN = 408 # >
+    LESSER_THAN = 409 # <
+    GREAT_OR_EQUALS = 410 # >=
+    LESSER_OR_EQUALS = 411 # <=
+    SQUARE_ROOT = 412 # sqrt()
+    POWER = 413 # ^
     
     #-DECLARE OPERATORS-#
     
-    DECLARE_EQUALS = 301 # =>
+     # =>
     # FUNCTION_EQUALS = 302
     
