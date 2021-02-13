@@ -195,6 +195,6 @@ class Token:
     def checkIfKeyword(tokenText):
         for kind in tokenType:
             # Relies on all keyword enum values being 1XX.
-            if kind.name.lower() == tokenText and kind.value >= 100 and kind.value < 200:
+            if kind.name.lower() == tokenText and kind.value >= 100 and kind.value < 400:
                 return kind
         return None
