@@ -41,4 +41,45 @@ variable => 0;
 
 This makes the code more like more common programming languages like Python or JavaScript, however there are many different bits from other popular languages.
 
-If you'd like to find out more, then wait until we've finished the actual thing!
+Some noticeable changes from kOS to Breez are: 
+* hold - We've changed *wait* to *hold* to add more of a countdown effect.
+* throttle(0) - You now change the throttle by calling it like you'd call a function in kOS.
+* @import - Similar to python, you now *import* rather than doing *runPath* etc.
+* g / l - *Global / Lock* have been shortened to reduce how much you type, leaving unnecessary code behind.
+* || - You now type these two lines to basically say *or*.
+* clear; - This is what *clearscreen* does in kOS.
+
+Obviously there are many more features, however you can experiment with those yourself! 
+
+***
+## A Basic Example Program
+
+We're going to demonstrate how different kOS is from Breez below by showing a short example of a KSP rocket scientists first script.
+
+```Javascript
+// This is the Breez code:
+clear;
+
+helloText => "Hello World";
+print(helloText);
+
+stage;
+throttle(1);
+print("Ascending");
+```
+```Javascript
+// This is the kOS code:
+clearscreen.
+
+set helloText to "Hello World".
+print(helloText).
+
+stage.
+lock throttle to 1.
+print("Ascending").
+```
+
+As you can see, there is a significant difference between the two examples.
+
+***
+#That's it for now! Check back soon for more documentation.
