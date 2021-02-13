@@ -63,8 +63,4 @@ class tokenType(enum.Enum):
     SQUARE_ROOT = 412 # sqrt()
     POWER = 413 # ^
     
-    #-DECLARE OPERATORS-#
-    
-     # =>
-    # FUNCTION_EQUALS = 302
     
