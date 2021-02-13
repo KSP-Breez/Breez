@@ -45,7 +45,7 @@ Some noticeable changes from kOS to Breez are:
 * `hold` - We've changed *wait* to *hold* to add more of a countdown effect.
 * `throttle(0)` - You now change the throttle by calling it like you'd call a function in kOS.
 * `@IMPORT` - Similar to Python, you now *import* rather than doing *runPath* etc.
-* `g / l` - *Global / Lock* have been shortened to reduce how much you type, leaving unnecessary code behind.
+* `g / l` - *Global / Local* have been shortened to reduce how much you type, leaving unnecessary code behind.
 * `||` - You now type these two lines to basically say *or*.
 * `clear;` - This is what *clearscreen* does in kOS.
 * Case-sensitivity - You now cannot type in FUNCTION and FunCtion without getting a syntax error.
