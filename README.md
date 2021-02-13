@@ -3,7 +3,7 @@
 ## Open Source, kOS Based, Transpiled (or Compiled) Language
 
 ```js
-print("Breez: The Open Source, kOS Based, Transpiled (or Compiled) Language. For Kerbal Space Nerds");
+print "Breez: The Open Source, kOS Based, Transpiled (or Compiled) Language. For Kerbal Space Nerds";
 interested => true;
 
 while interested {
@@ -29,7 +29,7 @@ Due to kOS being very [verbose](https://www.bing.com/search?q=verbose+meaning&cv
 useless parts and shortened it all down. 
 For example, if you were to be declaring a variable in kOS, it would look like this:
 
-```bash
+```swift
 set variable to 0.
 ```
 
@@ -45,7 +45,7 @@ Some noticeable changes from kOS to Breez are:
 * `hold` - We've changed *wait* to *hold* to add more of a countdown effect.
 * `throttle(0)` - You now change the throttle by calling it like you'd call a function in kOS.
 * `@IMPORT:` - Similar to Obj-C/C++, you now *import* rather than doing *runPath* etc.
-* `g / l` - *Global / Local* have been shortened to reduce how much you type, leaving unnecessary code behind.
+* `g / l` - *Global / Local* keywords have been shortened to reduce how much you type, leaving unnecessary code behind.
 * `||` - You now type these two lines to basically say *or*.
 * `clear;` - This is what *clearscreen* does in kOS.
 * Case-sensitivity - You now cannot type in FUNCTION and FunCtion without getting a syntax error.
@@ -73,11 +73,11 @@ print("Ascending");
 clearscreen.
 
 set helloText to "Hello World".
-print(helloText).
+print helloText.
 
 stage.
 lock throttle to 1.
-print("Ascending").
+print "Ascending".
 ```
 
 As you can see, there is a significant difference between the two examples.
