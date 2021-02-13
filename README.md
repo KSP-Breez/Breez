@@ -19,7 +19,7 @@ If you'd like to start programming rockets with Breez, then **download it**!
 ## What Is Breez?
 
 Breez is a [transpiler](https://medium.com/madfish-solutions/what-is-a-transpiler-47beac592848) which can be used to transform the code to [Kerboscript](http://ksp-kos.github.io/KOS_DOC/#:~:text=kOS%2C%20or%20Kerbal%20Operating%20System%2C%20is%20a%20community-supported,learning%20a%20lot%20by%20accident%20as%20you%20).
-You can use Breez to program rockets in KSP, and then run it through the kOS mod after compiling the code through Yamal (name for our compiler)
+You can use Breez to program rockets in KSP, and then run it through the kOS mod after compiling the code through Yamal (name for our compiler).
 We describe it as: *a stripped down version of Kerboscript that makes syntax more lightweight and also makes kOS more user/programmer friendly.*
 
 ***
