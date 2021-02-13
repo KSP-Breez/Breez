@@ -2,7 +2,7 @@
 
 ## Open Source, kOS Based, Transpiled (or Compiled) Language
 
-```c++
+```js
 print("Breez: The Open Source, kOS Based, Transpiled (or Compiled) Language. For Kerbal Space Nerds");
 interested => true;
 
@@ -29,13 +29,13 @@ Due to kOS being very [verbose](https://www.bing.com/search?q=verbose+meaning&cv
 useless parts and shortened it all down. 
 For example, if you were to be declaring a variable in kOS, it would look like this:
 
-```javascript
+```bash
 set variable to 0.
 ```
 
 However with Breez you only need to write this:
 
-```c++
+```js
 variable => 0;
 ```
 
