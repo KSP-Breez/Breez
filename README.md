@@ -57,7 +57,7 @@ Obviously there are many more features, however you can experiment with those yo
 
 We're going to demonstrate how different kOS is from Breez below by showing a short example of a KSP rocket scientists first script.
 
-```Javascript
+```js
 // This is the Breez code:
 clear;
 
@@ -68,7 +68,7 @@ stage;
 throttle(1);
 print("Ascending");
 ```
-```Javascript
+```swift
 // This is the kOS code:
 clearscreen.
 
