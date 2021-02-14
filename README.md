@@ -11,7 +11,7 @@ while interested {
 }
 ```
 
-Welcome to the Breez Github page, we are a team of developers working on a transpiler for kOS. 
+Welcome to the Breez Github page, we are a team of developers working on a transpiled language for kOS named Breez. 
 Breez will be used in many places like [Saturn Aerospace](https://www.youtube.com/c/SaturnAerospaceKSP), personal projects and other virtual space companies.
 
 If you'd like to start programming rockets with Breez, then [**download it**](https://github.com/KSP-Breez/Breez/releases/latest)!
