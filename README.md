@@ -16,6 +16,9 @@ Breez will be used in many places like [Saturn Aerospace](https://www.youtube.co
 
 If you'd like to start programming rockets with Breez, then [**download it**](https://github.com/KSP-Breez/Breez/releases/latest)!
 
+### Please Note: 
+***The transpiled code may be around 2 to 5 times bigger than Breez code.***
+
 ***
 ## What Is Breez?
 
