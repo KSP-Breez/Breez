@@ -1,7 +1,7 @@
 from Lexer import *
 from Logger import Log
 
-class Parser:
+class Yamal_Parser:
     def __init__(self, lexer):
         self.lexer = lexer
         
@@ -10,8 +10,11 @@ class Parser:
         self.nextToken()
         self.nextToken()
     
-    def checkToken(selk, kind):
+    def checkToken(self, kind):
         return kind == self.curToken.kind
+    
+    def errorMes(self, message):
+        sys.exit(f"")
     
     def checkPeek(self, kind):
         return kind == self.peekToken.kind
@@ -27,6 +30,25 @@ class Parser:
         
     def program(self):
         Log("Starting parser")
+        print("PROGRAM")
         
-        while not self.checkTOken(tokenType.EOF):
+        while not self.checkToken(tokenType.EOF):
             self.statement()
+    
+    def statement(self):
+        if self.checkToken(tokenType.PRINT):
+            print("PRINT")
+            self.nextToken()
+            
+            if self.checkToken(tokenType.STRING):
+                self.nextToken()
+            else:
+                self.expression()
+        self.EOL_NL()
+            
+    def EOL_NL(self):
+        print("SEMICOLON + NEWLINE")
+        
+        self.match(tokenType.EOL)
+        self.match(tokenType.NEWLINE)
+        

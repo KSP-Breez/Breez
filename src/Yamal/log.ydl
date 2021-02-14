@@ -1,1 +1,4 @@
-
+[Feb 14 20:42:33 2021]--[Logger.py]--[EVENT]: Opened file test.briz.
+[Feb 14 20:42:33 2021]--[Logger.py]--[EVENT]: Starting parser.
+[Feb 14 22:42:10 2021]--[Logger.py]--[EVENT]: Opened file test.briz.
+[Feb 14 22:42:10 2021]--[Logger.py]--[EVENT]: Starting parser.

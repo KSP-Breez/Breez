@@ -11,6 +11,7 @@ class tokenType(enum.Enum):
     STRING = 3
     TEMPLATE_LITERAL = 4 # #<Variable> (Enclosed in double backticks rather than in single backticks)
     DECLARE_EQUALS = 5
+    EOL = 6 # :
     
     #-DIRECTIVES-#
     
@@ -45,6 +46,7 @@ class tokenType(enum.Enum):
     FOR = 118
     AND = 119 # &&
     OR = 120 # ||
+    PRINTAT = 121
     
     
     #-MATHEMATICAL OPERATORS-#

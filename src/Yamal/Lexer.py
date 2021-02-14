@@ -8,6 +8,7 @@ class Yamal_Lexer():
         self.source = input + '\n'
         self.curChar = ''
         self.curPos = -1
+        self.VerticalPos = 0
         self.nextCharacter()
     
     def nextCharacter(self):
@@ -23,7 +24,7 @@ class Yamal_Lexer():
         return self.source[self.curPos+1]
     
     def errorMes(self, message):
-        sys.exit(f"Error has occured while compiling!\nError: {message}")
+        sys.exit(f"Error has occured while compiling at {curPos},{VerticalPos}!\nError: {message}")
     
     def skipSpaces(self):
         while self.curChar == ' ' or self.curChar == '\t' or self.curChar == '\r':
@@ -112,14 +113,14 @@ class Yamal_Lexer():
             
         elif self.curChar == "@":
             startPos = self.curPos
-            while self.curChar != ":":
+            while self.curChar != " ":
                 self.nextCharacter()
             tokText = self.source[startPos : self.curPos]
-            if tokText == "@IMPORT":
+            if tokText == "@IMPORT:":
                 token = Token(tokText, tokenType.IMPORT)
-            elif tokText == "@STRICT":
+            elif tokText == "@STRICT:":
                 token = Token(tokText, tokenType.STRICT)
-            elif tokText == "@LAZYGLOBAL":
+            elif tokText == "@LAZYGLOBAL:":
                 token = Token(tokText, tokenType.LAZYGLOBAL)
             else:
                 print(tokText)
@@ -175,7 +176,11 @@ class Yamal_Lexer():
             else:   # Keyword
                 token = Token(tokText, keyword)
             
+        elif self.curChar == ";":
+            token = Token(self.curChar, tokenType.EOL)
+        
         elif self.curChar == '\n':
+            self.VerticalPos += 1
             token = Token(self.curChar, tokenType.NEWLINE)
             
         elif self.curChar == '\0':
