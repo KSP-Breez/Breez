@@ -1,6 +1,7 @@
 import sys
 import enum
 from Tokens import *
+from Extra import *
 
 class Yamal_Lexer():
     
@@ -10,6 +11,7 @@ class Yamal_Lexer():
         self.curPos = -1
         self.VerticalPos = 0
         self.nextCharacter()
+        self.globalPosition = f"{curPos},{VerticalPos}"
     
     def nextCharacter(self):
         self.curPos += 1
@@ -23,8 +25,8 @@ class Yamal_Lexer():
             return '\0'
         return self.source[self.curPos+1]
     
-    def errorMes(self, message):
-        sys.exit(f"Error has occured while compiling at {curPos},{VerticalPos}!\nError: {message}")
+    #def errorMes(self, message):
+    #    sys.exit(f"Error has occured while compiling at {curPos},{VerticalPos}!\nError: {message}")
     
     def skipSpaces(self):
         while self.curChar == ' ' or self.curChar == '\t' or self.curChar == '\r':
@@ -102,7 +104,7 @@ class Yamal_Lexer():
                 startPos = self.curPos
                 while self.curChar != '>':
                     if self.peek() == '"' or self.peek() == "'":
-                        self.errorMes('Template literal not closed, missing ">".')
+                        self.errorMes('Template literal not closed, missing ">".', self.globalPosition)
                         sys.exit()
                         break
                         # ERROR!!! DESC: Loop refuses to exit even when sys.exit gets called inside the if statement.
@@ -132,7 +134,7 @@ class Yamal_Lexer():
                 token = Token(lastChar + self.curChar, tokenType.NOT_EQUALS)
                 
             else:
-                self.errorMes("Unexpected token: !\nExpected token: !=")
+                self.errorMes("Unexpected token: !, Expected token: !=", self.globalPosition)
                 
         elif self.curChar.isdigit():
             startPos = self.curPos
@@ -144,7 +146,7 @@ class Yamal_Lexer():
                 # Must have at least one digit after decimal.
                 if not self.peek().isdigit(): 
                     # Error!
-                    self.errorMes("Unexpected letter in floating point.")
+                    self.errorMes("Unexpected letter in floating point.", self.globalPosition)
                 while self.peek().isdigit():
                     self.nextCharacter()
 
@@ -187,7 +189,7 @@ class Yamal_Lexer():
             token = Token(" ", tokenType.EOF)
                     
         else:
-            self.errorMes(f"Unexpected token: {self.curChar} at {self.curPos}")
+            self.errorMes(f"Unexpected token: {self.curChar} at {self.curPos}", self.globalPosition)
         
         self.nextCharacter()
         return token
