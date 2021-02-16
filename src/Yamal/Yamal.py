@@ -19,5 +19,5 @@ def main():
         parser = Yamal_Parser(lexer)
 
         parser.program() # Start the parser.
-        Log("Parsing completed.", 3)
+        Log("Parsing completed", 3)
 main()
