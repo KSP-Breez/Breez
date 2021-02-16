@@ -1,7 +1,7 @@
 import sys
 import enum
 from Tokens import *
-from Extra import *
+from Extra import Log, errorMes
 
 class Yamal_Lexer():
     
@@ -11,7 +11,7 @@ class Yamal_Lexer():
         self.curPos = -1
         self.VerticalPos = 0
         self.nextCharacter()
-        self.globalPosition = f"{curPos},{VerticalPos}"
+        self.globalPosition = f"{self.curPos},{self.VerticalPos}"
     
     def nextCharacter(self):
         self.curPos += 1
@@ -202,6 +202,6 @@ class Token:
     def checkIfKeyword(tokenText):
         for kind in tokenType:
             # Relies on all keyword enum values being 1XX.
-            if kind.name.lower() == tokenText and kind.value >= 100 and kind.value < 400:
+            if kind.name.lower().replace("_", ":") == tokenText and kind.value >= 100 and kind.value < 400:
                 return kind
         return None

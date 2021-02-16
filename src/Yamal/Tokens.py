@@ -11,7 +11,7 @@ class tokenType(enum.Enum):
     STRING = 3
     TEMPLATE_LITERAL = 4 # #<Variable> (Enclosed in double backticks rather than in single backticks)
     DECLARE_EQUALS = 5
-    EOL = 6 # :
+    EOL = 6 # ;
     
     #-DIRECTIVES-#
     
@@ -35,18 +35,16 @@ class tokenType(enum.Enum):
     STAGE = 107
     ELSE = 108
     UP = 109
-    THROTTLE = 110
+    THROTTLE_ = 110
     FALSE = 111
     TRUE = 112
-    SHIP = 113
-    MASS = 114
-    STEERING = 115
-    G = 116
-    L = 117
-    FOR = 118
-    AND = 119 # &&
-    OR = 120 # ||
-    PRINTAT = 121
+    STEERING_ = 113
+    G = 114
+    L = 115
+    FOR = 116
+    AND = 117 # &&
+    OR = 118 # ||
+    PRINTAT = 119
     
     
     #-MATHEMATICAL OPERATORS-#
