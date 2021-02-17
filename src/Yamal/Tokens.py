@@ -12,6 +12,10 @@ class tokenType(enum.Enum):
     TEMPLATE_LITERAL = 4 # #<Variable> (Enclosed in double backticks rather than in single backticks)
     DECLARE_EQUALS = 5
     EOL = 6 # ;
+    CURLY_OPEN = 7
+    CURLY_CLOSE = 8
+    PARENTH_OPEN = 9
+    PARENTH_CLOSE = 10
     
     #-DIRECTIVES-#
     

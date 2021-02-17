@@ -18,7 +18,7 @@ class Yamal_Parser:
     
     def match(self, kind):
         if not self.checkToken(kind):
-            errorMes(f"Expected: {kind.name}, got: {self.curToken.kind.name}")
+            errorMes(f"Expected: {kind.name}, got: {self.curToken.kind.name}", 2)
         self.nextToken()
     
     def nextToken(self):
@@ -26,7 +26,7 @@ class Yamal_Parser:
         self.peekToken = self.lexer.getToken()
         
     def program(self):
-        Log("Starting parser", 3)
+        Log("Starting parser", 3, 2)
         print("PROGRAM")
         
         while not self.checkToken(tokenType.EOF):
@@ -41,6 +41,14 @@ class Yamal_Parser:
                 self.nextToken()
             else:
                 self.expression()
+                
+        elif self.checkToken(tokenType.IF):
+            print("STATEMENT-IF")
+            self.nextToken()
+            self.comparison
+            
+            self.match(tokenType.)
+        
         self.EOL_NL()
             
     def EOL_NL(self):
@@ -48,4 +56,6 @@ class Yamal_Parser:
         
         self.match(tokenType.EOL)
         self.match(tokenType.NEWLINE)
+        while self.checkToken(tokenType.NEWLINE):
+            self.nextToken()
         

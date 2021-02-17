@@ -4,3 +4,4 @@ Documentation
 src/Yamal/test.briz
 src/Yamal/__pycache__
 src/Yamal/log.ydl
+src/Yamal/UNIX_install.sh
