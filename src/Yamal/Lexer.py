@@ -192,6 +192,9 @@ class Yamal_Lexer():
             
         elif self.curChar == "}":
             token = Token(self.curChar, tokenType.CURLY_CLOSE)
+            
+        elif self.curChar == ",":
+            token = Token(self.curChar, tokenType.COMMA)
         
         elif self.curChar == '\n':
             self.VerticalPos += 1

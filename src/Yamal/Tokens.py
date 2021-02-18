@@ -16,6 +16,7 @@ class tokenType(enum.Enum):
     CURLY_CLOSE = 8
     PARENTH_OPEN = 9
     PARENTH_CLOSE = 10
+    COMMA = 11 # ,
     
     #-DIRECTIVES-#
     
@@ -66,5 +67,6 @@ class tokenType(enum.Enum):
     LESSER_OR_EQUALS = 411 # <=
     SQUARE_ROOT = 412 # sqrt()
     POWER = 413 # ^
-    
+    INCREMENT = 414 # ++
+    DECREMENT = 415 # --
     
