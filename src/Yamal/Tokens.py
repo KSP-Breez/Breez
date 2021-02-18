@@ -10,7 +10,7 @@ class tokenType(enum.Enum):
     IDENT = 2
     STRING = 3
     TEMPLATE_LITERAL = 4 # #<Variable> (Enclosed in double backticks rather than in single backticks)
-    DECLARE_EQUALS = 5
+    DECLARE_EQUALS = 5 # =>
     EOL = 6 # ;
     CURLY_OPEN = 7
     CURLY_CLOSE = 8

@@ -43,11 +43,38 @@ class Yamal_Parser:
                 self.expression()
                 
         elif self.checkToken(tokenType.IF):
-            print("STATEMENT-IF")
+            print("IF")
             self.nextToken()
             self.comparison
             
-            self.match(tokenType.)
+            self.match(tokenType.CURLY_OPEN)
+            self.NL()
+            
+            while not self.checkToken(tokenType.CURLY_CLOSE):
+                self.statement()
+            
+            self.mach(tokenType.CURLY_CLOSE)
+            
+        elif self.checkToken(tokenType.WHILE):
+            print("WHILE")
+            self.nextToken()
+            self.comparison()
+            
+            self.match(tokenType.CURLY_OPEN)
+            self.NL()
+            
+            while not self.checkToken(tokenType.CURLY_CLOSE)
+                self.statement()
+                
+            self.match(tokenType.CURLY_CLOSE)
+            
+        elif self.checkToken(tokenType.IDENT):
+            print("IDENT")
+            if self.checkPeek(tokenType.DECLARE_EQUALS):
+                self.nextToken()
+                self.match(tokenType.DECLARE_EQUALS)
+                self.expression()
+        
         
         self.EOL_NL()
             
@@ -58,4 +85,10 @@ class Yamal_Parser:
         self.match(tokenType.NEWLINE)
         while self.checkToken(tokenType.NEWLINE):
             self.nextToken()
+    
+    def NL(self):
+        print("NEWLINE")
         
+        self.match(tokenType.NEWLINE)
+        while self.checkToken(tokenType.NEWLINE):
+            self.nextToken()
