@@ -35,6 +35,6 @@ def Log(action, eventNumber, origin):
         YamalLogger.write(f"[{unfixedTime[4:]}]-[{returnOriginName(origin)}]-[{event}]: {action}.\n")
         YamalLogger.write("-------------------------------------------------------------------\n")
         
-def errorMes(message, sender, position="N/A"):
+def errorMes(message, sender, positionH="N/A", positionV="N/A"):
     Log(f"Error has occured while {returnOriginName(sender)[:-2].lower()}ing at {position}, ERROR: {message}", 1, int(sender))
-    sys.exit(f"[{returnOriginName(sender)}]-[Position: {position}] | ERROR: {message}")
+    sys.exit(f"[{returnOriginName(sender)}]-[Position: {positionH},{positionV}]ERROR: {message}")

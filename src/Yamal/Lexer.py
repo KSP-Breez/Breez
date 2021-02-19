@@ -3,15 +3,19 @@ import enum
 from Tokens import *
 from Extra import Log, errorMes
 
+
+
 class Yamal_Lexer():
-    
     def __init__(self, input):
         self.source = input + '\n'
         self.curChar = ''
         self.curPos = -1
         self.VerticalPos = 0
-        self.nextCharacter()
         self.globalPosition = f"{self.curPos},{self.VerticalPos}"
+        self.nextCharacter()
+        
+    def returnGlobalPOS(self):
+        return self.globalPosition
     
     def nextCharacter(self):
         self.curPos += 1
@@ -44,16 +48,34 @@ class Yamal_Lexer():
         self.skipComments()
         
         if self.curChar == "+":
-            token = Token(self.curChar, tokenType.PLUS)
+            if self.peek() == "+":
+                lastChar = self.curChar
+                self.nextCharacter()
+                token = Token(lastChar + self.curChar, tokenType.INCREMENT)
+            else:
+                token = Token(self.curChar, tokenType.PLUS)
             
         elif self.curChar == "-":
-            token = Token(self.curChar, tokenType.MINUS)
+            if self.peek() == "-":
+                lastChar = self.curChar
+                self.nextCharacter()
+                token = Token(lastChar + self.curChar, tokenType.DECREMENT)
+            else:
+                token = Token(self.curChar, tokenType.MINUS)
             
         elif self.curChar == '*':
             token = Token(self.curChar, tokenType.MULTIPLY)
             
         elif self.curChar == "/":
             token = Token(self.curChar, tokenType.DIVIDE)
+            
+        elif self.curChar == "^":
+            if self.peek() == "^":
+                lastChar = self.curChar
+                self.nextCharacter()
+                token = Token(lastChar + self.curChar, tokenType.ROUND)
+            else:
+                token = Token(self.curChar, tokenType.POWER)
         
         elif self.curChar == "=":
             if self.peek() == ">":
@@ -104,10 +126,10 @@ class Yamal_Lexer():
                 startPos = self.curPos
                 while self.curChar != '>':
                     if self.peek() == '"' or self.peek() == "'":
-                        errorMes('Template literal not closed, missing ">".', 1, self.globalPosition)
+                        errorMes('Template literal not closed, missing ">".', 1, globalPosition)
                         sys.exit()
                         break
-                        # ERROR!!! DESC: Loop refuses to exit even when sys.exit gets called inside the if statement.
+                        # ERROR: Loop refuses to exit even when sys.exit gets called inside the if statement.
                     self.nextCharacter()
 
             tokText = self.source[startPos : self.curPos] # Get the substring.
@@ -129,12 +151,17 @@ class Yamal_Lexer():
                 
         elif self.curChar == "!":
             if self.peek() == "=":
-                lastChar = self.curPos
+                lastChar = self.curChar
                 self.nextCharacter()
                 token = Token(lastChar + self.curChar, tokenType.NOT_EQUALS)
                 
+            elif self.peek() == "!":
+                lastChar = self.curChar
+                self.nextCharacter()
+                token = Token(lastChar + self.curChar, tokenType.MAX)
+                
             else:
-                self.errorMes("Unexpected token: !, Expected token: !=", 1, self.globalPosition)
+                self.errorMes("Unexpected token: !, Expected token: !=", 1, globalPosition)
                 
         elif self.curChar.isdigit():
             startPos = self.curPos
@@ -146,7 +173,7 @@ class Yamal_Lexer():
                 # Must have at least one digit after decimal.
                 if not self.peek().isdigit(): 
                     # Error!
-                    self.errorMes("Unexpected letter in floating point.", 1, self.globalPosition)
+                    self.errorMes("Unexpected letter in floating point.", 1, globalPosition)
                 while self.peek().isdigit():
                     self.nextCharacter()
 
@@ -204,7 +231,7 @@ class Yamal_Lexer():
             token = Token(" ", tokenType.EOF)
                     
         else:
-            errorMes(f"Unexpected token: {self.curChar} at {self.curPos}", 1, self.globalPosition)
+            errorMes(f"Unexpected token: {self.curChar} at {self.curPos}", 1, globalPosition)
         
         self.nextCharacter()
         return token
@@ -220,3 +247,4 @@ class Token:
             if kind.name.lower().replace("_", ":") == tokenText and kind.value >= 100 and kind.value < 400:
                 return kind
         return None
+    
