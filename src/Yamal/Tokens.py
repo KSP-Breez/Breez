@@ -50,6 +50,8 @@ class tokenType(enum.Enum):
     AND = 117 # &&
     OR = 118 # ||
     PRINTAT = 119
+    LATLNG = 120
+    DISTANCE = 121
     
     
     #-MATHEMATICAL OPERATORS-#
@@ -69,4 +71,6 @@ class tokenType(enum.Enum):
     POWER = 413 # ^
     INCREMENT = 414 # ++
     DECREMENT = 415 # --
-    
+    ROUND = 416 # ^^
+    MIN = 417 # ??
+    MAX = 418 # !!
