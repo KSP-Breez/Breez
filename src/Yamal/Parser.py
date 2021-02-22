@@ -1,14 +1,18 @@
 from Lexer import *
-from Extra import Log, errorMes
-
-#globalPosition = __import__("Lexer").Yamal_Lexer.globalPosition
+from Extra import Log, errorMes, warningMes, generalMes, successMes
 
 class Yamal_Parser:
     def __init__(self, lexer):
         self.lexer = lexer
         
+        self.variables = set()
+        self.variablesAlone = set()
+        self.functions = set()
+        #self.labelsGOTO = set()
+        #self.labelsDECLARED = set()
+        
         self.vert = 0
-        self.horiz = 0
+        #self.horiz = 0
         
         self.curToken = None
         self.peekToken = None
@@ -24,16 +28,16 @@ class Yamal_Parser:
     
     def match(self, kind):
         if not self.checkToken(kind):
-            errorMes(f"Expected: {kind.name}, got: {self.curToken.kind.name}", 2, self.horiz, self.vert)
+            errorMes(r"Expected: {}, got: {}".format(kind.name, self.curToken.kind.name), 2, self.lexer.returnHorizPOS(), self.vert)
         self.nextToken()
     
     def nextToken(self):
-        self.horiz += 1
+        #self.horiz += 1
         self.curToken = self.peekToken
         self.peekToken = self.lexer.getToken()
         
     def program(self):
-        Log("Starting parser", 3, 2)
+        generalMes("Starting parser", 3, 2)
         print("PROGRAM")
         
         while self.checkToken(tokenType.NEWLINE):
@@ -41,6 +45,10 @@ class Yamal_Parser:
         
         while not self.checkToken(tokenType.EOF):
             self.statement()
+            
+        #for Alone in self.variablesAlone:
+            #if Alone not in self.variables:
+                #warningMes(f"Variable has been declared but not used. Variable: {Alone}.", 2)
             
     def expression(self):
         print("EXPRESSION")
@@ -64,7 +72,7 @@ class Yamal_Parser:
         if self.checkToken(tokenType.PLUS) or self.checkToken(tokenType.MINUS):
             self.nextToken()
         self.primary()
-        
+    
     """ def unaryOne(self):
         print("UNARY ONE")
         
@@ -73,14 +81,17 @@ class Yamal_Parser:
         self.primary() """
         
     def primary(self):
-        print(f"PRIMARY ({self.curToken.text})")
+        print(r"PRIMARY ({})".format(self.curToken.text))
         
         if self.checkToken(tokenType.NUMBER):
             self.nextToken()
         elif self.checkToken(tokenType.IDENT):
+            #self.variablesAlone.remove(self.curToken.text)
+            if self.curToken.text not in self.variables:
+                errorMes(f"Non-existent variable: {self.curToken.text} at {self.lexer.returnHorizPOS()}, {self.vert}", 2, self.lexer.returnHorizPOS(), self.vert)
             self.nextToken()
         else:
-            errorMes(f"Unexpected token at {self.globalPos} ({self.curToken.text})", 2, self.horiz, self.vert)
+            errorMes(f"Unexpected token at {self.lexer.returnHorizPOS()},{self.vert} ({self.curToken.text})", 2, self.lexer.returnHorizPOS(), self.vert)
         
     def comparison(self):
         print("COMPARISON")
@@ -90,7 +101,7 @@ class Yamal_Parser:
             self.nextToken()
             self.expression()
         else:
-            errorMes(f"Expected comparison operator at {self.globalPos} ({self.curToken.text})", 2, self.horiz, self.vert) 
+            errorMes(f"Expected comparison operator at {self.lexer.returnHorizPOS}(),{self.vert} ({self.curToken.text})", 2, self.lexer.returnHorizPOS(), self.vert) 
             
         while self.isCompOP():
             self.nextToken()
@@ -137,10 +148,17 @@ class Yamal_Parser:
             
         elif self.checkToken(tokenType.IDENT):
             print("VARIABLE")
+            
+            if self.curToken.text not in self.variables:
+                self.variables.add(self.curToken.text)
+                #self.variablesAlone.add(self.curToken.text)
+            
             if self.checkPeek(tokenType.DECLARE_EQUALS):
                 self.nextToken()
                 self.match(tokenType.DECLARE_EQUALS)
                 self.expression()
+            else:
+                errorMes("Missing declaration operator (=>).", 1, self.lexer.returnHorizPOS(), self.vert)
         
         # for i=>1,i<10,i++          
         elif self.checkToken(tokenType.FOR):        
@@ -164,7 +182,7 @@ class Yamal_Parser:
             self.match(tokenType.CURLY_CLOSE)
                 
         else:
-            errorMes(f"Invalid statement at {self.globalPos} ({self.curToken.text}).", 2, self.horiz, self.vert)
+            errorMes(f"Invalid statement at {self.lexer.returnHorizPOS()} ({self.curToken.text}).", 2, self.lexer.returnHorizPOS(), self.vert)
             print(self.curToken.kind.name)
         
         self.EOL_NL()
@@ -172,6 +190,7 @@ class Yamal_Parser:
     def EOL_NL(self):
         print("SEMICOLON + NEWLINE")
         self.vert += 1
+        #self.horiz = 0
         
         self.match(tokenType.EOL)
         self.match(tokenType.NEWLINE)

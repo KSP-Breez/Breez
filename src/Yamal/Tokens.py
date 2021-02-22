@@ -46,12 +46,14 @@ class tokenType(enum.Enum):
     STEERING_ = 113
     G = 114
     L = 115
-    FOR = 116
-    AND = 117 # &&
-    OR = 118 # ||
-    PRINTAT = 119
-    LATLNG = 120
-    DISTANCE = 121
+    LABEL_ = 116
+    FOR = 117
+    AND = 118 # &&
+    OR = 119 # ||
+    PRINTAT = 120
+    LATLNG = 121
+    DISTANCE = 122
+    BREAK = 123
     
     
     #-MATHEMATICAL OPERATORS-#
