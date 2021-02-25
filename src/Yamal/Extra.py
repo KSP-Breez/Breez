@@ -1,6 +1,8 @@
 import sys
 import time
 import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "YES"
+import pygame
 from colorama import Fore, Style
 from enum import Enum
 from Lexer import *
@@ -34,7 +36,8 @@ def returnOriginName(origin):
         return originName
     else:
         return 
-
+    
+    
 
 def Log(action, eventNumber, origin):
     with open("log.ydl", "a") as YamalLogger:
@@ -46,8 +49,13 @@ def Log(action, eventNumber, origin):
         YamalLogger.write(f"[{unfixedTime[4:]}]-[{returnOriginName(origin)}]-[{event}]: {action}.\n")
         YamalLogger.write("-------------------------------------------------------------------\n")
         
+        
 def errorMes(message, sender, positionH="N/A", positionV="N/A"):
     Log(f"At {positionH},{positionV}, ERR: {message}", 1, int(sender))
+    pygame.mixer.init()
+    pygame.mixer.music.load("error.wav")
+    pygame.mixer.music.play()
+    time.sleep(0.18) # * It only works if we do it like this, so please don't change it 
     sys.exit(f"{COLORS['ERROR']}[{returnOriginName(sender)}]-[POS: {positionH},{positionV}] | ERROR: {message}{COLORS['END']}")
     
 def warningMes(message, sender, positionH="N/A", positionV="N/A"):

@@ -38,10 +38,9 @@ class Yamal_Lexer():
             self.nextCharacter()
     
     def skipComments(self):
-        if self.curChar == "/":
-            if self.peek() == "/":
-                while self.curChar != "\n":
-                    self.nextCharacter()
+        if self.curChar == "#":
+            while self.curChar != "\n":
+                self.nextCharacter()
     
     def getToken(self):
         token = None
@@ -120,7 +119,7 @@ class Yamal_Lexer():
             else:
                 token = Token(self.curChar, tokenType.LESSER_THAN)
                             
-        elif self.curChar == '#':
+        elif self.curChar == '$':
             # Get characters between quotations.
             self.nextCharacter()
             if self.curChar == "<":
@@ -223,6 +222,9 @@ class Yamal_Lexer():
             
         elif self.curChar == ",":
             token = Token(self.curChar, tokenType.COMMA)
+            
+        elif self.curChar == ":":
+            token = Token(self.curChar, tokenType.COLON)
         
         elif self.curChar == '\n':
             self.VerticalPos += 1
