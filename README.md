@@ -6,7 +6,7 @@
 print "Breez: The Open Source, kOS Based, Transpiled (or Compiled) Language. For Kerbal Space Nerds";
 interested => true;
 
-while interested {
+while interested = true {
   download();
 }
 ```
@@ -38,7 +38,7 @@ set variable to 0.
 
 However with Breez you only need to write this:
 
-```js
+```python
 variable => 0;
 ```
 
@@ -60,16 +60,16 @@ Obviously there are many more features, however you can experiment with those yo
 
 We're going to demonstrate how different kOS is from Breez below by showing a short example of a KSP rocket scientists first script.
 
-```js
-// This is the Breez code:
+```python
+# This is the Breez code:
 clear;
 
 helloText => "Hello World";
-print(helloText);
+print helloText;
 
-stage;
-throttle: 1;
-print("Ascending");
+stage();
+throttle(1);
+print "Ascending";
 ```
 ```swift
 // This is the kOS code:
