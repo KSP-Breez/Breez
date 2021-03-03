@@ -109,8 +109,7 @@ class Yamal_Parser:
         for function in self.functionsCalled:
             if function not in self.functions:
                 errorMes(f"Attempting to call a non-existent function: {function}", 2, self.lexer.returnHorizPOS(), self.vert)
-                
-        print(accessSettings("CompilerIsStrict"))        
+                      
         for possibleAlone in self.variablesAlone:
             if possibleAlone in self.variables:
                 if accessSettings("CompilerIsStrict") == 0:
