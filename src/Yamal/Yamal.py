@@ -15,16 +15,12 @@ from Parser import *
 from Emitter import *
 from Extra import Log, errorMes, warningMes, generalMes, successMes, accessSettings, writeSettings
 
-# with open("settings.json", "r+") as jsonObj:
-#     Settings = json.load(jsonObj)
-#     if Settings["firstTime?"] == 1:
-#         Path = input("Please input the \033[4m full path\033[0m (Users/<Your username here>/) to your KSP folder here: ")
-#         print(os.path.expanduser("~"))
-#         Settings["KSPath"] = f"{Path}/Ships/Script".replace("/", "\\") if sys.platform == "win32" else f"{Path}/Ships/Script/" 
-#         Settings["firstTime?"] = 0
-#         jsonObj.seek(0)
-#         json.dump(Settings, jsonObj, indent=4)
-#         jsonObj.truncate()
+if accessSettings("firstTime?") == 1:
+    soundEnable = input("Please input 0 or 1 (0 = off, 1 = on) here to enabled/disable error sound: ")
+    logEnable = input("Please input 0 or 1 (0 = off, 1 = on) here to enabled/disable error, warning and action logging: ")
+    writeSettings("errorSoundEnabled?", soundEnable)
+    writeSettings("LoggingEnabled?", logEnable)
+    writeSettings("firstTime?", 0)
 
 def main():
     start = time.time()
@@ -50,6 +46,7 @@ def main():
             successMes(f"Compilation complete, file saved to the current directory", 3, 4)
             generalMes(f"Summary: {parser.accessErrWarns()}", 2, 4)
             generalMes(f"Compilation time: {end - start}", 2, 4)
+            writeSettings("CompilerIsStrict", 0)
     else:
         errorMes("Yamal can't convert files with any extensions other than .briz", 4)
         

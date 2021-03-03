@@ -39,15 +39,16 @@ def returnOriginName(origin):
         return 
     
 def Log(action, eventNumber, origin):
-    with open("log.ydl", "a") as YamalLogger:
-        if eventNumber <= 10:
-            event = eventType(int(eventNumber)).name.replace("_", "/")
-        else:
-            return
-                              
-        YamalLogger.write(f"[{unfixedTime[4:]}]-[{returnOriginName(origin)}]-[{event}]: {action}.\n")
-        YamalLogger.write("-------------------------------------------------------------------\n")
-        
+    if accessSettings("LoggingEnabled?") == 1:
+        with open("log.ydl", "a") as YamalLogger:
+            if eventNumber <= 10:
+                event = eventType(int(eventNumber)).name.replace("_", "/")
+            else:
+                return
+                                  
+            YamalLogger.write(f"[{unfixedTime[4:]}]-[{returnOriginName(origin)}]-[{event}]: {action}.\n")
+            YamalLogger.write("-------------------------------------------------------------------\n")
+            
 def accessSettings(setting):
     with open("settings.json", "r") as settings:
         settingsObj = json.load(settings)
