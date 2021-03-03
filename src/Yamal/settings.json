@@ -1,5 +1,7 @@
 {
     "Version": "V1.0.0-Beta",
     "Release": "The calm before the storm",
-    "CompilerIsStrict": false
+    "firstTime?": 0,
+    "CompilerIsStrict": 1,
+    "errorSoundEnabled?": 0
 }

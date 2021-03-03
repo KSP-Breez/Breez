@@ -17,20 +17,15 @@ class tokenType(enum.Enum):
     PARENTH_OPEN = 9
     PARENTH_CLOSE = 10
     COMMA = 11 # ,
-    COLON = 12
-    AND = 13 # &&
-    OR = 14 # ||
-    
-    #-DIRECTIVES-#
+    SUFFIX_SEP = 12
+    COLON = 13
+    AND = 14 # &&
+    OR = 15 # ||
+    AT_SYMBOL = 16 # @
     
     #-COMPILER DIRECTIVES-#
     
-    STRICT = 51
-    
-    #-BREEZ DIRECTIVES-#
-    
-    IMPORT = 53
-    LAZYGLOBAL = 54
+   # !!! Moved to its own category in #-KEYWORDS-# at 140 to 150 under #-DIRECTIVES-# tag
     
     #-KEYWORDS-#
     CPU = 102 # [0 - ARCHIVE], [1 - THIS CPU STORAGE]
@@ -53,7 +48,7 @@ class tokenType(enum.Enum):
     LOG = 119
     TO = 120
     RESTART = 121
-    FUNCTION = 122
+    FUNC = 122
     UNLOCK = 123
     
     # MISC
@@ -79,6 +74,11 @@ class tokenType(enum.Enum):
     AG8 = 136
     AG9 = 137
     AG10 = 138
+    
+    # DIRECTIVES
+    STRICT = 140
+    IMPORT = 141
+    LAZYGLOBAL = 142
     
     #-MATHEMATICAL OPERATOR-S#
     

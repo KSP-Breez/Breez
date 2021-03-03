@@ -10,8 +10,8 @@ class Yamal_Lexer():
         self.source = input + '\n'
         self.curChar = ''
         self.curPos = -1
-        self.HorizPos = 0
-        self.VerticalPos = 0
+        self.HorizPos = 1
+        self.VerticalPos = 1
         self.nextCharacter()
         
     def returnHorizPOS(self):
@@ -35,6 +35,7 @@ class Yamal_Lexer():
     
     def skipSpaces(self):
         while self.curChar == ' ' or self.curChar == '\t' or self.curChar == '\r':
+            self.HorizPos += 1
             self.nextCharacter()
     
     def skipComments(self):
@@ -136,18 +137,7 @@ class Yamal_Lexer():
             token = Token(tokText, tokenType.TEMPLATE_LITERAL) 
             
         elif self.curChar == "@":
-            startPos = self.curPos
-            while self.curChar != " ":
-                self.nextCharacter()
-            tokText = self.source[startPos : self.curPos]
-            if tokText == "@IMPORT:":
-                token = Token(tokText, tokenType.IMPORT)
-            elif tokText == "@STRICT:":
-                token = Token(tokText, tokenType.STRICT)
-            elif tokText == "@LAZYGLOBAL:":
-                token = Token(tokText, tokenType.LAZYGLOBAL)
-            else:
-                print(tokText)
+            token = Token(self.curChar, tokenType.AT_SYMBOL)
                 
         elif self.curChar == "!":
             if self.peek() == "=":
@@ -223,6 +213,9 @@ class Yamal_Lexer():
         elif self.curChar == ",":
             token = Token(self.curChar, tokenType.COMMA)
             
+        elif self.curChar == ".":
+            token = Token(self.curChar, tokenType.SUFFIX_SEP)
+            
         elif self.curChar == ":":
             token = Token(self.curChar, tokenType.COLON)
         
@@ -248,7 +241,7 @@ class Token:
     def checkIfKeyword(tokenText):
         for kind in tokenType:
             # Relies on all keyword enum values being 1XX.
-            if kind.name.lower().replace("_", ":") == tokenText and kind.value >= 100 and kind.value < 400:
+            if kind.name.lower() == tokenText and kind.value >= 100 and kind.value < 400:
                 return kind
         return None
     

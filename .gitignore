@@ -9,4 +9,5 @@ src/fileHeader.briz
 src/Yamal/test_KS-OUT.ks
 src/Yamal/stressTest.briz
 src/Yamal/stressTest_KS-OUT.ks
+src/Yamal/RAMLog.ydl
 Commands
