@@ -1,8 +1,8 @@
 {
     "Version": "V1.0.0-Beta",
     "Release": "The calm before the storm",
-    "firstTime?": 0,
+    "firstTime?": 1,
     "CompilerIsStrict": 0,
-    "errorSoundEnabled?": "1",
-    "LoggingEnabled?": "1"
+    "errorSoundEnabled?": "0",
+    "LoggingEnabled?": "0"
 }
