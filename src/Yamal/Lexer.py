@@ -11,11 +11,15 @@ class Yamal_Lexer():
         self.curChar = ''
         self.curPos = -1
         self.HorizPos = 1
+        self.LastHorizPos = None
         self.VerticalPos = 1
         self.nextCharacter()
         
     def returnHorizPOS(self):
-        return self.HorizPos
+        if self.curChar != "\n":
+            return self.LastHorizPos
+        else:
+            return self.HorizPos
     
     def nextCharacter(self):
         self.curPos += 1
@@ -221,6 +225,7 @@ class Yamal_Lexer():
         
         elif self.curChar == '\n':
             self.VerticalPos += 1
+            self.LastHorizPos = self.HorizPos
             self.HorizPos = 0
             token = Token(self.curChar, tokenType.NEWLINE)
             

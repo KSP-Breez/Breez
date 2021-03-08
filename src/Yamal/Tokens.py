@@ -1,4 +1,4 @@
-import enum
+ import enum
 
 class tokenType(enum.Enum):
     
@@ -21,64 +21,70 @@ class tokenType(enum.Enum):
     COLON = 13
     AND = 14 # &&
     OR = 15 # ||
-    AT_SYMBOL = 16 # @
+    NOT = 16 # !
+    AT_SYMBOL = 17 # @
     
     #-COMPILER DIRECTIVES-#
     
    # !!! Moved to its own category in #-KEYWORDS-# at 140 to 150 under #-DIRECTIVES-# tag
     
     #-KEYWORDS-#
-    CPU = 102 # [0 - ARCHIVE], [1 - THIS CPU STORAGE]
-    IF = 103
-    WHILE = 104
-    HOLD = 105
-    PRINT = 106
-    CLEAR = 107
-    STAGE = 108
-    ELSE = 109
-    FOR = 110
-    BREAK = 111
-    THROTTLE = 112
-    FALSE = 113
-    TRUE = 114
-    STEERING = 115
-    G = 116
-    L = 117
-    PRINTAT = 118
-    LOG = 119
-    TO = 120
-    RESTART = 121
-    FUNC = 122
-    UNLOCK = 123
+    CPU = 100 # [0 - ARCHIVE], [1 - THIS CPU STORAGE]
+    IF = 101
+    WHILE = 102
+    HOLD = 103
+    PRINT = 104
+    CLEAR = 105
+    STAGE = 106
+    ELSE = 107
+    FOR = 108
+    BREAK = 109
+    THROTTLE = 110
+    FALSE = 111
+    TRUE = 112
+    STEERING = 113
+    GLOBAL = 114
+    LOCAL = 115
+    PRINTAT = 116
+    LOG = 117
+    RESTART = 118
+    FUNC = 119
+    UNLOCK = 120
+    GOTO = 121
     
     # MISC
-    UP = 121
-    LABEL = 122
-    LATLNG = 123
-    DISTANCE = 124
+    UP = 122
+    LABEL = 123
+    LATLNG = 124
+    DISTANCE = 125
     
     # META TAGS
-    META = 125
-    DESC = 126
-    AUTHORS = 127
-    LICENSE = 128
+    META = 126
+    DESC = 127
+    AUTHORS = 128
+    LICENSE = 129
     
     # ACTION GROUPS
-    AG1 = 129
-    AG2 = 130
-    AG3 = 131
-    AG4 = 132
-    AG5 = 133
-    AG6 = 134
-    AG7 = 135
-    AG8 = 136
-    AG9 = 137
-    AG10 = 138
+    AG1 = 130
+    AG2 = 131
+    AG3 = 132
+    AG4 = 133
+    AG5 = 134
+    AG6 = 135
+    AG7 = 136
+    AG8 = 137
+    AG9 = 138
+    AG10 = 139
     
     # DIRECTIVES
     STRICT = 140
     IMPORT = 141
     LAZYGLOBAL = 142
+    
+    # OTHER KOS RELATED LANGUAGES TAGS
+    KASM = 143
+    GRAVITAS = 144
+    KOS = 145
     
     #-MATHEMATICAL OPERATOR-S#
     

@@ -39,16 +39,15 @@ def returnOriginName(origin):
         return 
     
 def Log(action, eventNumber, origin):
-    if accessSettings("LoggingEnabled?") == 1:
+    if accessSettings("LoggingEnabled?") == "1":
         with open("log.ydl", "a") as YamalLogger:
             if eventNumber <= 10:
                 event = eventType(int(eventNumber)).name.replace("_", "/")
             else:
-                return
-                                  
+                return     
             YamalLogger.write(f"[{unfixedTime[4:]}]-[{returnOriginName(origin)}]-[{event}]: {action}.\n")
             YamalLogger.write("-------------------------------------------------------------------\n")
-            
+        
 def accessSettings(setting):
     with open("settings.json", "r") as settings:
         settingsObj = json.load(settings)
@@ -62,7 +61,7 @@ def writeSettings(setting, value):
         json.dump(settingsObj, settings, indent=4)
         settings.truncate()
      
-# !!! WARNING: DO NOT USE UNLESS YOU WANT TO SEE HOW THE COMPILER WRITES AND READ FROM "VIRTUAL RAM"!
+# !!! WARNING: DO NOT USE UNLESS YOU WANT TO SEE HOW THE COMPILER WRITES AND READS FROM "VIRTUAL RAM"!
         
 def RAMLog(RAM_Number, W_D_R): # W - Write, D - Delete, R - Read
     with open("RAMLog.ydl", "a") as RAMLogger:
@@ -79,18 +78,16 @@ def RAMLog(RAM_Number, W_D_R): # W - Write, D - Delete, R - Read
         
 def errorMes(message, sender, positionH="N/A", positionV="N/A"):
     Log(f"At {positionH},{positionV}, ERR: {message}", 1, int(sender))
-    with open("settings.json", "r") as setRead:
-        errorSoundEnabled = json.load(setRead)
-        if errorSoundEnabled["errorSoundEnabled?"] == 1:
-            pygame.mixer.init()
-            pygame.mixer.music.load("error.wav")
-            pygame.mixer.music.play()
+    if accessSettings("errorSoundEnabled?") == "1":
+        pygame.mixer.init()
+        pygame.mixer.music.load("error.wav")
+        pygame.mixer.music.play()
     time.sleep(0.18) # * It only works if we do it like this, so please don't change it 
-    sys.exit(f"{COLORS['ERROR']}[{returnOriginName(sender)}]-[POS: {positionH},{positionV}] | ERROR: {message}{COLORS['END']}")
+    sys.exit(f"{COLORS['ERROR']}[{returnOriginName(sender)}]-[HORIZ:{positionH}, VERT:{positionV}] | ERROR: {message}{COLORS['END']}")
     
 def warningMes(message, sender, positionH="N/A", positionV="N/A"):
     Log(f"At {positionH},{positionV}, WARN: {message}", 4, int(sender))
-    print(f"{COLORS['WARNING']}[{returnOriginName(sender)}]-[POS: {positionH},{positionV}] | WARNING: {message}{COLORS['END']}")
+    print(f"{COLORS['WARNING']}[{returnOriginName(sender)}]-[HORIZ:{positionH}, VERT:{positionV}] | WARNING: {message}{COLORS['END']}")
     
 def generalMes(message, eventNumber, sender):
     Log(message, eventNumber, int(sender))

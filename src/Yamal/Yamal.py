@@ -5,7 +5,6 @@
 
 import os
 import sys
-import progress
 import json
 import time
 from getpass import getuser
@@ -28,7 +27,7 @@ def main():
         errorMes("Yamal needs .briz source file as argument.", 4)
     if ".briz" in sys.argv[1]:
         with open(sys.argv[1], 'r') as yamalCompiler:
-            writeSettings("CompilerIsStrict", 0)
+            writeSettings("CompilerIsStrict", "0")
             generalMes(f"Opened file {sys.argv[1]}", 3, 4)
         
             input = yamalCompiler.read()

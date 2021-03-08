@@ -10,4 +10,7 @@ src/Yamal/test_KS-OUT.ks
 src/Yamal/stressTest.briz
 src/Yamal/stressTest_KS-OUT.ks
 src/Yamal/RAMLog.ydl
+src/Yamal/test.py
+src/Yamal/WIN32_install.cmd
+.vscode
 Commands

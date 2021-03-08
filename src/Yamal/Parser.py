@@ -1,7 +1,7 @@
 from Lexer import *
 from Emitter import *
 import os
-from Extra import *
+from Extra import accessSettings, writeSettings, warningMes, errorMes, generalMes, successMes, Log
 
 class Yamal_Parser:
     def __init__(self, lexer, emitter, sysargv):
@@ -18,7 +18,7 @@ class Yamal_Parser:
         self.invertedCOMP = {
             ">=": " <= ",
             "<=": " >= ",
-            "=": " != ",
+            "=": " <> ",
             "!=": " = ",
             "<": " > ",
             ">": " < "
@@ -75,7 +75,9 @@ class Yamal_Parser:
     
     def match(self, kind):
         if not self.checkToken(kind):
-            errorMes(r"Expected: {}, got: {}".format(kind.name, self.curToken.kind.name), 2, self.lexer.returnHorizPOS(), self.vert)
+            if kind == tokenType.EOL:
+                errorMes("Missing semicolon (;) at the end of line", 2, self.lexer.returnHorizPOS(), self.vert)
+                errorMes(r"Expected: {}, got: {}".format(kind.name, self.curToken.kind.name), 2, self.lexer.returnHorizPOS(), self.vert)
         self.nextToken()
     
     def nextToken(self):
@@ -97,7 +99,7 @@ class Yamal_Parser:
         while not self.checkToken(tokenType.EOF):
             self.statement()
             
-        self.emitter.emitLine("wait until false.")
+        self.emitter.emitLine("WAIT UNTIL FALSE.")
         
         self.emitter.headerLine(f"   // Authors: {self.metaInfo['Authors']}")
         self.emitter.headerLine(f"  // Description: {self.metaInfo['Desc']}")
@@ -178,7 +180,10 @@ class Yamal_Parser:
             if self.whileOperator == True:
                 self.emitter.emit(self.invertedCOMP[self.curToken.text])
             else:
-                self.emitter.emit(f"{self.curToken.text} ")
+                if self.curToken.text == "!=":
+                    self.emitter.emit(" <> ")
+                else:
+                    self.emitter.emit(f" {self.curToken.text} ")
             self.nextToken()
             self.expression()
         else:
@@ -195,22 +200,74 @@ class Yamal_Parser:
     def isCompOP(self):
         return self.checkToken(tokenType.GREATER_THAN) or self.checkToken(tokenType.GREAT_OR_EQUALS) or self.checkToken(tokenType.LESSER_THAN) or self.checkToken(tokenType.LESSER_OR_EQUALS) or self.checkToken(tokenType.EQUALS) or self.checkToken(tokenType.NOT_EQUALS)
     
+    def If(self):
+        self.nextToken()
+        self.emitter.emit("} ELSE IF ")
+        self.comparison()
+        
+        self.match(tokenType.CURLY_OPEN)
+        self.NL()
+        self.emitter.emitLine(" {")
+        
+        self.identLevel += 1
+        while not self.checkToken(tokenType.CURLY_CLOSE):
+            self.statement()
+        self.identLevel -= 1 
+        
+        self.match(tokenType.CURLY_CLOSE)
+        
+        if self.checkToken(tokenType.ELSE):
+            self.nextToken()
+            if self.checkToken(tokenType.CURLY_OPEN):    
+                self.Else()
+            elif self.checkToken(tokenType.IF):    
+                self.If()
+        else:
+            self.emitter.emitLine("}.")
+            
+    def Else(self):
+        self.match(tokenType.CURLY_OPEN)
+        self.NL()
+        self.emitter.emitLine("} ELSE {")
+        
+        self.identLevel += 1
+        while not self.checkToken(tokenType.CURLY_CLOSE):
+            self.statement()
+        self.identLevel -= 1
+        
+        self.match(tokenType.CURLY_OPEN)
+        self.emitter.emitLine("}.")
+    
     def statement(self):
         self.whileOperator = False
         tempFunctionStor = None
         self.emitter.emit("    "*self.identLevel)
+        #self.emitter.emit("\t"*self.identLevel)
         RAM_ID = 0
+
         
         if self.checkToken(tokenType.PRINT):
             self.nextToken()
+            self.match(tokenType.PARENTH_OPEN)
             
             if self.checkToken(tokenType.STRING):
-                self.emitter.emitLine(f'PRINT {self.curToken.text}".')
+                self.emitter.emit(f'PRINT {self.curToken.text}"')
                 self.nextToken()
             else:
                 self.emitter.emit("PRINT ")
                 self.expression()
-                self.emitter.emitLine(".")
+                
+            if self.checkToken(tokenType.COMMA):
+                self.emitter.emit("AT (")
+                self.nextToken()
+                self.expression()
+                self.match(tokenType.COMMA)
+                self.emitter.emit(",")
+                self.expression()
+                self.emitter.emit(")")
+                
+            self.match(tokenType.PARENTH_CLOSE)
+            self.emitter.emitLine(".")
                 
         elif self.checkToken(tokenType.IF):
             self.nextToken()
@@ -226,9 +283,17 @@ class Yamal_Parser:
                 self.statement()
             self.identLevel -= 1 
             
-            self.emitter.emitLine("}.")
-            
             self.match(tokenType.CURLY_CLOSE)
+            
+            if self.checkToken(tokenType.ELSE):
+                self.nextToken()
+                if self.checkToken(tokenType.CURLY_OPEN):    
+                    self.Else()
+                elif self.checkToken(tokenType.IF):    
+                    self.If()
+            else:
+                self.emitter.emitLine("}.")
+                        
             
         elif self.checkToken(tokenType.STAGE):
             self.nextToken()
@@ -254,7 +319,7 @@ class Yamal_Parser:
             self.match(tokenType.CURLY_CLOSE)
             self.emitter.emitLine("}.")
             
-        elif self.checkToken(tokenType.L):
+        elif self.checkToken(tokenType.LOCAL):
             self.nextToken()
             
             if self.curToken.text not in self.variablesAlone:
@@ -274,7 +339,7 @@ class Yamal_Parser:
                 self.expression()
                 self.emitter.emitLine(".")
                 
-        elif self.checkToken(tokenType.G):
+        elif self.checkToken(tokenType.GLOBAL):
             self.nextToken()
             
             if self.curToken.text not in self.variablesAlone:
@@ -378,11 +443,10 @@ class Yamal_Parser:
                     
                     
             elif self.checkToken(tokenType.LAZYGLOBAL):
-                if self.checkPeek(tokenType.TRUE) or self.checkPeek(tokenType.FALSE):
+                if self.checkPeek(tokenType.FALSE):
                     self.nextToken()
-                    self.emitter.emitLine(f"@LAZYGLOBAL {self.curToken.text}".replace("true", "ON") \
-                    if self.curToken.text == "true" else f"@LAZYGLOBAL {self.curToken.text}".replace("false", "OFF"))
-                    self.nextToken()
+                    self.match(tokenType.FALSE)
+                    self.emitter.emitLine("@LAZYGLOBAL OFF.")
         
         elif self.checkToken(tokenType.IDENT):
             if self.checkPeek(tokenType.PARENTH_OPEN):
@@ -439,10 +503,43 @@ class Yamal_Parser:
             self.identLevel -= 1 
                 
             self.match(tokenType.CURLY_CLOSE)
-            self.emitter.emitLine("}.")            
+            self.emitter.emitLine("}.")      
+            
+        elif self.checkToken(tokenType.THROTTLE):
+            self.nextToken()
+            self.match(tokenType.PARENTH_OPEN)
+            self.emitter.emit("LOCK THROTTLE TO ")
+            self.expression()
+            self.match(tokenType.PARENTH_CLOSE) 
+            self.emitter.emitLine(".")   
+            
+        elif self.checkToken(tokenType.CPU):
+            self.nextToken()
+            self.match(tokenType.PARENTH_OPEN)
+            self.emitter.emit(f"SWITCH TO ") 
+            self.expression()
+            self.match(tokenType.PARENTH_CLOSE)
+            self.emitter.emitLine(".")
+            
+        elif self.checkToken(tokenType.CLEAR):
+            self.nextToken()
+            self.match(tokenType.PARENTH_OPEN)
+            self.match(tokenType.PARENTH_CLOSE)
+            
+        # ! Might implement in the near future    
+        
+        #elif self.checkToken(tokenType.KOS):
+        #    self.nextToken()
+        #    self.match(tokenType.COLON)
+        #    self.NL()
+        #    while not self.checkToken(tokenType.COLON) and not self.checkPeek(tokenType.KOS):
+        #        
+        #        self.nextToken()
                 
         else:
-            errorMes(f"Invalid statement at {self.lexer.returnHorizPOS()} ({self.curToken.text}).", 2, self.lexer.returnHorizPOS(), self.vert)
+            nl = "\n"
+            nnl = "\\n"
+            errorMes(f"Invalid statement at {self.lexer.returnHorizPOS()} ({nnl if self.curToken.text == nl else self.curToken.text}).", 2, self.lexer.returnHorizPOS(), self.vert)
         
         
         self.EOL_NL()
