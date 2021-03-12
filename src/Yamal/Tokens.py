@@ -1,4 +1,4 @@
- import enum
+import enum
 
 class tokenType(enum.Enum):
     
@@ -45,7 +45,7 @@ class tokenType(enum.Enum):
     STEERING = 113
     GLOBAL = 114
     LOCAL = 115
-    PRINTAT = 116
+    SHIP = 116
     LOG = 117
     RESTART = 118
     FUNC = 119

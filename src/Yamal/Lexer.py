@@ -1,9 +1,7 @@
 import sys
 import enum
 from Tokens import *
-from Extra import Log, errorMes, warningMes, generalMes, successMes
-
-
+from Extra import *
 
 class Yamal_Lexer():
     def __init__(self, input):
@@ -49,6 +47,12 @@ class Yamal_Lexer():
     
     def getToken(self):
         token = None
+        tempStorage = None # Gets erased every 2 cycles
+        cycle = 0
+        if cycle == 2:
+            cycle = 0
+            tempStorage = None
+        cycle += 1
         self.skipSpaces()
         self.skipComments()
         
@@ -194,8 +198,11 @@ class Yamal_Lexer():
             # Check if the token is in the list of keywords.
             tokText = self.source[startPos : self.curPos + 1] # Get the substring.
             keyword = Token.checkIfKeyword(tokText)
+            suffix = Token.checkIfSuffix(tokText)
             if keyword == None: # Identifier
                 token = Token(tokText, tokenType.IDENT)
+            elif suffix != None:
+                token = Token(tokText, suffix)
             else:   # Keyword
                 token = Token(tokText, keyword)
             
@@ -218,6 +225,7 @@ class Yamal_Lexer():
             token = Token(self.curChar, tokenType.COMMA)
             
         elif self.curChar == ".":
+            tempStorage = self.curChar
             token = Token(self.curChar, tokenType.SUFFIX_SEP)
             
         elif self.curChar == ":":
@@ -249,4 +257,8 @@ class Token:
             if kind.name.lower() == tokenText and kind.value >= 100 and kind.value < 400:
                 return kind
         return None
-    
+    @staticmethod
+    def checkIfSuffix(, tokenText):
+        for suffix in suffixTokenType:
+            if suffix.name.lower() == tokenText and suffix.value >= 2000 and tempStorage == ".":
+                return suffix

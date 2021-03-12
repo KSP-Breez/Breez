@@ -2,11 +2,13 @@ import sys
 import time
 import os
 import json
+import re
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "YES"
 import pygame
 from colorama import Fore, Style
 from enum import Enum
 from Lexer import *
+from Alphabet import *
 
 unfixedTime = time.asctime(time.localtime(time.time()))
 
@@ -62,6 +64,11 @@ def writeSettings(setting, value):
         settings.truncate()
      
 # !!! WARNING: DO NOT USE UNLESS YOU WANT TO SEE HOW THE COMPILER WRITES AND READS FROM "VIRTUAL RAM"!
+
+def UpAfterUnderline(kind):
+    pattern = re.compile('|'.join(AlphabetDict.keys()))
+    endKind = pattern.sub(lambda x: AlphabetDict[x.group()], kind)
+    return endKind
         
 def RAMLog(RAM_Number, W_D_R): # W - Write, D - Delete, R - Read
     with open("RAMLog.ydl", "a") as RAMLogger:

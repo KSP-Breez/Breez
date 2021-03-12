@@ -526,6 +526,7 @@ class Yamal_Parser:
             self.match(tokenType.PARENTH_OPEN)
             self.match(tokenType.PARENTH_CLOSE)
             
+            
         # ! Might implement in the near future    
         
         #elif self.checkToken(tokenType.KOS):
