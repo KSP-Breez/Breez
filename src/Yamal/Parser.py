@@ -16,8 +16,8 @@ class Yamal_Parser:
         self.warningCount = 0
         
         self.invertedCOMP = {
-            ">=": " <= ",
-            "<=": " >= ",
+            ">=": " < ",
+            "<=": " > ",
             "=": " <> ",
             "!=": " = ",
             "<": " > ",
