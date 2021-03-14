@@ -16,12 +16,12 @@ class Yamal_Parser:
         self.warningCount = 0
         
         self.invertedCOMP = {
-            ">=": " <= ",
-            "<=": " >= ",
+            ">=": " < ",
+            "<=": " > ",
             "=": " <> ",
             "!=": " = ",
-            "<": " > ",
-            ">": " < "
+            "<": " >= ",
+            ">": " <= "
         }
         self.metaInfo = {
             "Authors": "N/A",
