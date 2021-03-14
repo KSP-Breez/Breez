@@ -3,8 +3,8 @@
 ## Open Source, kOS Based, Transpiled (or Compiled) Language
 
 ```js
-print "Breez: The Open Source, kOS Based, Transpiled (or Compiled) Language. For Kerbal Space Nerds";
-interested => true;
+print("Breez: The Open Source, kOS Based, Transpiled (or Compiled) Language. For Kerbal Space Nerds");
+global interested => true;
 
 while interested = true {
   download();
@@ -39,7 +39,7 @@ set variable to 0.
 However with Breez you only need to write this:
 
 ```python
-variable => 0;
+global variable => 0;
 ```
 
 This makes the code more like more common programming languages like Python or JavaScript, however there are many different bits from other popular languages.
@@ -47,7 +47,7 @@ This makes the code more like more common programming languages like Python or J
 Some noticeable changes from kOS to Breez are: 
 * `hold` - We've changed *wait* to *hold* to add more of a countdown effect.
 * `throttle(0.5)` - You now change the throttle by simply calling it like a function!
-* `@IMPORT:` - Similar to Obj-C/C++, you now *import* rather than doing *runPath* etc.
+* `@import:` - Similar to Obj-C/C++, you now *import* rather than doing *runPath* etc.
 * `g / l` - *Global / Local* keywords have been shortened to reduce how much you type, leaving unnecessary code behind.
 * `||` - You now type these two lines to basically say *or*.
 * `clear;` - This is what *clearscreen* does in kOS.
@@ -62,14 +62,14 @@ We're going to demonstrate how different kOS is from Breez below by showing a sh
 
 ```python
 # This is the Breez code:
-clear;
+clear();
 
-helloText => "Hello World";
-print helloText;
+global helloText => "Hello World";
+print(helloText);
 
 stage();
 throttle(1);
-print "Ascending";
+print("Ascending");
 ```
 ```swift
 // This is the kOS code:
