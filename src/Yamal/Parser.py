@@ -366,7 +366,7 @@ class Yamal_Parser:
             
             self.emitter.emit("FROM {") 
             self.nextToken()
-            self.match(tokenType.L)
+            self.match(tokenType.LOCAL)
             self.emitter.emit(f"LOCAL {self.curToken.text} IS ")
             if self.curToken.text not in self.variablesAlone:
                 self.variablesAlone.add(self.curToken.text)
@@ -525,6 +525,14 @@ class Yamal_Parser:
             self.nextToken()
             self.match(tokenType.PARENTH_OPEN)
             self.match(tokenType.PARENTH_CLOSE)
+            
+        elif self.checkToken(tokenType.HOLD):
+            self.nextToken()
+            self.match(tokenType.PARENTH_OPEN)
+            self.emitter.emit("WAIT ")
+            self.expression()
+            self.match(tokenType.PARENTH_CLOSE)
+            self.emitter.emitLine(".")
             
             
         # ! Might implement in the near future    

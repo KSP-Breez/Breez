@@ -198,11 +198,11 @@ class Yamal_Lexer():
             # Check if the token is in the list of keywords.
             tokText = self.source[startPos : self.curPos + 1] # Get the substring.
             keyword = Token.checkIfKeyword(tokText)
-            suffix = Token.checkIfSuffix(tokText)
+            #suffix = Token.checkIfSuffix(tokText)
             if keyword == None: # Identifier
                 token = Token(tokText, tokenType.IDENT)
-            elif suffix != None:
-                token = Token(tokText, suffix)
+            #elif suffix != None:
+                #token = Token(tokText, suffix)
             else:   # Keyword
                 token = Token(tokText, keyword)
             
@@ -257,8 +257,9 @@ class Token:
             if kind.name.lower() == tokenText and kind.value >= 100 and kind.value < 400:
                 return kind
         return None
-    @staticmethod
-    def checkIfSuffix(, tokenText):
-        for suffix in suffixTokenType:
-            if suffix.name.lower() == tokenText and suffix.value >= 2000 and tempStorage == ".":
-                return suffix
+    # @staticmethod
+    # def checkIfSuffix(, tokenText):
+    #     for suffix in suffixTokenType:
+    #         if suffix.name.lower() == tokenText and suffix.value >= 2000 and tempStorage == ".":
+    #             return suffix
+    
