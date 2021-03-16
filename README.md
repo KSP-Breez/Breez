@@ -83,4 +83,3 @@ print "Ascending".
 ```
 
 As you can see, there is a significant difference between the two examples.
-***
